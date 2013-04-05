@@ -4,9 +4,9 @@ function! StartServer()
   echo "Starting server"
 endfunction
    
-function! ApplyMappings()
-  exec "nnoremap <silent> <buffer> <CR> :call SelectList()<CR>"
-endfunction
+"function! ApplyMappings()
+  "exec "nnoremap <silent> <buffer> <CR> :call SelectList()<CR>"
+"endfunction
 
 function! StartTasks()
   rubyfile vim_helper.rb
@@ -14,12 +14,18 @@ function! StartTasks()
     $v = VimHelper.new
     $v.print_tasklists
 EOF
-  call ApplyMappings()
+  "call ApplyMappings()
 endfunction
 
 function! SelectList()
   ruby << EOF
   $v.select_tasklist()
+EOF
+endfunction
+
+function! ToggleTask()
+  ruby << EOF
+  $v.toggle_task
 EOF
 endfunction
 
