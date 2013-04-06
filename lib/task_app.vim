@@ -7,6 +7,7 @@ endfunction
 function! BasicMappings()
   exec "nnoremap <silent> <leader>t :call StartTasks()<CR>"
   exec "nnoremap <silent> <leader>rl :source task_app.vim<CR>"
+  exec "nnoremap <silent> <leader>tl :call SelectTlWindow()<CR>"
 endfunction
    
 "function! ApplyMappings()
@@ -17,7 +18,6 @@ function! StartTasks()
   rubyfile vim_helper.rb
   ruby << EOF
     $v = VimHelper.new
-    $v.print_tasklists
 EOF
   "call ApplyMappings()
 endfunction
@@ -28,6 +28,10 @@ endfunction
 
 function! ToggleTask()
   ruby $v.toggle_task
+endfunction
+
+function! SelectTlWindow()
+  ruby $v.select_tl_window
 endfunction
 
 function! QuitApp()
