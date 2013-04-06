@@ -23,16 +23,19 @@ EOF
 endfunction
 
 function! SelectList()
-  ruby << EOF
-  $v.select_tasklist()
-EOF
+  ruby $v.select_tasklist()
 endfunction
 
 function! ToggleTask()
-  ruby << EOF
-  $v.toggle_task
-EOF
+  ruby $v.toggle_task
 endfunction
+
+function! QuitApp()
+  ruby $v.quit
+endfunction
+
+command! Tasks :call StartTasks()
+command! QuitTasks :call QuitApp()
 
 call BasicMappings()
 call StartServer()

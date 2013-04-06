@@ -14,6 +14,7 @@ class VimHelper
     get_server()
 
     VIM.command "botright new TASKSLISTS"
+    @tl_win = $curwin
     @tl_buffer = VIM::Buffer.current
     setup_buffer()
     tasklist_mappings()
@@ -35,6 +36,13 @@ class VimHelper
     VIM::command "setlocal cursorline"
   end
 
+  def get_win_number(window)
+    c = VIM::Window.count
+    1.upto(c) do |n|
+      return n if window == VIM::Window[n]
+    end
+  end
+
   def map_key(key, function)
     cmd = "nnoremap <silent> <buffer> <#{key.to_s}> :call #{function}()<CR>"
     VIM::command cmd
@@ -51,7 +59,8 @@ class VimHelper
 
   def task_window
     VIM.command "belowright vne TASKS"
-    @task_buffer = VIM::Buffer.current
+    @task_win = $curwin
+    @task_buffer = $curbuf
     setup_buffer
     task_mappings()
   end
@@ -93,9 +102,22 @@ class VimHelper
 
   def toggle_task
     task_index = @task_buffer.line_number - 1
-    @task_server.toggle_status(task_index, @tl_index)
+    @task_server.toggle_status(task_index, @tl_win.cursor[0]-1)
     refresh_tasks()
     VIM::Window.current.cursor = [task_index+1, 0]
+  end
+
+  def close_window(window)
+    win_num = get_win_number(window)
+    VIM::command "#{win_num} wincmd w"
+    VIM::command "q!"
+  end
+
+  def quit
+    if @task_window
+      close_window(@task_window)
+    end
+    close_window(@tl_window)
   end
 
 end
