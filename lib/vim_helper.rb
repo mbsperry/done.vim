@@ -93,10 +93,9 @@ class VimHelper
 
   def toggle_task
     task_index = @task_buffer.line_number - 1
-    @tl_index = @tl_buffer.line_number - 1
-    puts "Task: #{task_index}, TL: #{@tl_index}"
-    #@task_server.toggle_status(task_index, @tl_index)
-    #refresh_tasks(@tl_index)
+    @task_server.toggle_status(task_index, @tl_index)
+    refresh_tasks()
+    VIM::Window.current.cursor = [task_index+1, 0]
   end
 
 end
