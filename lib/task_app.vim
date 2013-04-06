@@ -3,6 +3,11 @@ function! StartServer()
 "  let result = system(l:cmd)
   echo "Starting server"
 endfunction
+
+function! BasicMappings()
+  exec "nnoremap <silent> <leader>t :call StartTasks()<CR>"
+  exec "nnoremap <silent> <leader>rl :source task_app.vim<CR>"
+endfunction
    
 "function! ApplyMappings()
   "exec "nnoremap <silent> <buffer> <CR> :call SelectList()<CR>"
@@ -29,4 +34,5 @@ function! ToggleTask()
 EOF
 endfunction
 
+call BasicMappings()
 call StartServer()

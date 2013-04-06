@@ -2,6 +2,8 @@ require 'drb/drb'
 
 class VimHelper
 
+  attr_accessor :tl_index
+
   def get_server
     server_uri ="druby://localhost:8787"
     DRb.start_service("druby://localhost:0")
@@ -76,24 +78,25 @@ class VimHelper
     self.lock
   end
 
-  def refresh_tasks(tl_index)
+  def refresh_tasks
     self.unlock
-    lines = @task_server.get_task_lines(tl_index).reverse
+    lines = @task_server.get_task_lines(@tl_index).reverse
     lines.each { |l| @task_buffer.append(0, l) }
     self.lock
   end
 
   def select_tasklist
-    tl_index = @tl_buffer.line_number - 1
+    @tl_index = @tl_buffer.line_number - 1
     task_window()
-    refresh_tasks(tl_index)
+    refresh_tasks()
   end
 
   def toggle_task
     task_index = @task_buffer.line_number - 1
-    tl_index = @tl_buffer.line_number - 1
-    @task_server.toggle_status(task_index, tl_index)
-    refresh_tasks(tl_index)
+    @tl_index = @tl_buffer.line_number - 1
+    puts "Task: #{task_index}, TL: #{@tl_index}"
+    #@task_server.toggle_status(task_index, @tl_index)
+    #refresh_tasks(@tl_index)
   end
 
 end
