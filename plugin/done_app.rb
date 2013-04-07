@@ -25,7 +25,7 @@ class DoneApp
 
   end
 
-  def setup_buffer
+  def setup_buffer()
     VIM::command "setlocal bufhidden=delete"
     VIM::command "setlocal buftype=nofile"
     VIM::command "setlocal nomodifiable"
@@ -39,6 +39,7 @@ class DoneApp
     VIM::command "setlocal textwidth=0"
     VIM::command "setlocal noreadonly"
     VIM::command "setlocal cursorline"
+    VIM::command 'setlocal statusline=[\ %f\ ]'
   end
 
   def make_tl_window
@@ -51,7 +52,11 @@ class DoneApp
     VIM.command "belowright vne TASKS"
     @task_window = $curwin
     @task_buffer = $curbuf
-    setup_buffer
+
+    tl_title = @task_server.get_tasklist_title(@tl_window.cursor[0]-1)
+    setup_buffer()
+    VIM.command 'setlocal statusline+=%='
+    VIM.command "setlocal statusline+=#{tl_title}"
     task_mappings()
   end
 
