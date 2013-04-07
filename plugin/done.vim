@@ -1,5 +1,5 @@
 " Done.vim, a simple way to integrate Google Tasks and vim
-" Version 0.1.1
+" Version 0.1.3
 " Matthew Sperry, 2012
 
 function! StartServer()
