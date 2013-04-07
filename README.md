@@ -17,8 +17,8 @@ Missing features:
 
 Use:
 
--  Start Done with <leader>t
--  Quit Done with <leader>q
+-  Start Done with leader-t
+-  Quit Done with leader-q
 -  Navigation keys are in a state of flux, sorry.
 -  Many normal mode keys are remapped in the buffers managed by Done.
    User beware for now until I finish the documentation.
