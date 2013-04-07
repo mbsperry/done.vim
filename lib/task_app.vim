@@ -43,6 +43,10 @@ function! SortTasks()
   ruby $v.sort_tasks
 endfunction
 
+function! AddTask()
+  ruby $v.add_task
+endfunction
+
 function! DeleteTask()
   ruby $v.delete_task
 endfunction
@@ -54,6 +58,7 @@ endfunction
 command! Tasks :call StartTasks()
 command! RefreshTasks :call RefreshTasks()
 command! SortTasks :call SortTasks()
+command! AddTask :call AddTask()
 command! QuitTasks :call QuitApp()
 
 call BasicMappings()

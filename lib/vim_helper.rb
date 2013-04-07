@@ -105,6 +105,7 @@ class VimHelper
     map_key("<space>", "ToggleTask")
     map_key("h", "SelectTlWindow")
     map_key("dd", "DeleteTask")
+    map_key("i", "AddTask")
   end
 
   def unlock
@@ -157,6 +158,19 @@ class VimHelper
     $curwin.cursor = [task_index+1, 0]
   end
   
+  def input(msg)
+    VIM.command "call inputsave()"
+    VIM.command "let user_input = input('#{msg} ')"
+    VIM.command "call inputrestore()"
+    VIM.evaluate "user_input"
+  end
+
+  def add_task
+    task_name = input("New task name:")
+    @task_server.new_task(task_name, @tl_index)
+    refresh_tasks()
+  end
+
   def delete_task
     task_index = @task_buffer.line_number - 1
     @task_server.delete_task(task_index, @tl_window.cursor[0]-1)
