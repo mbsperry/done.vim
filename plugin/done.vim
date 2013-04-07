@@ -5,7 +5,7 @@
 function! StartServer()
   let l:cmd = '../bin/task_server &'
 "  let result = system(l:cmd)
-  echo "Starting server"
+"  echo "Starting server"
 endfunction
 
 function! BasicMappings()
