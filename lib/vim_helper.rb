@@ -19,6 +19,10 @@ class VimHelper
 
     print_tasklists()
     @tl_window.cursor = [0,0]
+
+    make_task_window()
+    select_tasklist()
+
   end
 
   def setup_buffer
@@ -69,9 +73,17 @@ class VimHelper
     end
   end
 
-  def select_tl_window
-    win_num = get_win_number(@tl_window)
+  def select_window(window)
+    win_num = get_win_number(window)
     VIM::command "#{win_num} wincmd w"
+  end
+
+  def select_tl_window
+    select_window(@tl_window)
+  end
+
+  def close_task_window
+    close_window(@task_window)
   end
 
   def quit
@@ -91,6 +103,7 @@ class VimHelper
 
   def task_mappings
     map_key("<space>", "ToggleTask")
+    map_key("h", "SelectTlWindow")
   end
 
   def unlock
@@ -115,15 +128,19 @@ class VimHelper
   end
 
   def refresh_tasks
+    select_window(@task_window)
     self.unlock
     lines = @task_server.get_task_lines(@tl_index).reverse
     lines.each { |l| @task_buffer.append(0, l) }
     self.lock
+    @task_window.cursor = [0,0]
   end
 
   def select_tasklist
-    @tl_index = @tl_buffer.line_number - 1
-    make_task_window()
+    @tl_index = @tl_window.cursor[0] - 1
+    unless get_win_number(@task_window)
+      make_task_window()
+    end
     refresh_tasks()
   end
 

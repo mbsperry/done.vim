@@ -8,6 +8,7 @@ function! BasicMappings()
   exec "nnoremap <silent> <leader>t :call StartTasks()<CR>"
   exec "nnoremap <silent> <leader>rl :source task_app.vim<CR>"
   exec "nnoremap <silent> <leader>tl :call SelectTlWindow()<CR>"
+  exec "nnoremap <silent> <leader>q :call QuitApp()<CR>"
 endfunction
    
 "function! ApplyMappings()
@@ -32,6 +33,7 @@ endfunction
 
 function! SelectTlWindow()
   ruby $v.select_tl_window
+  ruby $v.close_task_window
 endfunction
 
 function! QuitApp()
