@@ -136,6 +136,11 @@ class VimHelper
     @task_window.cursor = [0,0]
   end
 
+  def sort_tasks
+    @task_server.sort_tasks(@tl_index)
+    refresh_tasks
+  end
+
   def select_tasklist
     @tl_index = @tl_window.cursor[0] - 1
     unless get_win_number(@task_window)
