@@ -14,17 +14,10 @@ function! BasicMappings()
   exec "nnoremap <silent> <leader>q :call QuitApp()<CR>"
 endfunction
    
-"function! ApplyMappings()
-  "exec "nnoremap <silent> <buffer> <CR> :call SelectList()<CR>"
-"endfunction
-
 function! StartTasks()
   let ruby_file = fnameescape(globpath(&runtimepath, 'plugin/done_app.rb')) 
   exe 'rubyfile ' .ruby_file 
-  ruby << EOF
-    $v = DoneApp.new
-EOF
-  "call ApplyMappings()
+  ruby $v = DoneApp.new
 endfunction
 
 function! SelectList()
