@@ -1,3 +1,7 @@
+" Done.vim, a simple way to integrate Google Tasks and vim
+" Version 0.1.1
+" Matthew Sperry, 2012
+
 function! StartServer()
   let l:cmd = '../bin/task_server &'
 "  let result = system(l:cmd)
@@ -15,7 +19,8 @@ endfunction
 "endfunction
 
 function! StartTasks()
-  rubyfile done_app.rb
+  let s:p = call fnameescape(expand('<sfile>:p:h')
+  rubyfile s:p.done_app.rb
   ruby << EOF
     $v = DoneApp.new
 EOF
