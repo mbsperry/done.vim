@@ -15,4 +15,4 @@ command! AddTask :call done#AddTask()
 command! QuitTasks :call done#QuitApp()
 
 call BasicMappings()
-call StartServer()
+" call StartServer()
