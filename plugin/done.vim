@@ -15,9 +15,9 @@ endfunction
 "endfunction
 
 function! StartTasks()
-  rubyfile vim_helper.rb
+  rubyfile done_app.rb
   ruby << EOF
-    $v = VimHelper.new
+    $v = DoneApp.new
 EOF
   "call ApplyMappings()
 endfunction
@@ -49,6 +49,10 @@ endfunction
 
 function! DeleteTask()
   ruby $v.delete_task
+endfunction
+
+function! ChangeTaskName()
+  ruby $v.change_task_name
 endfunction
 
 function! QuitApp()

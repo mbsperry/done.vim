@@ -1,6 +1,6 @@
 require 'drb/drb'
 
-class VimHelper
+class DoneApp
 
   attr_accessor :tl_index, :tl_window, :task_window
 
@@ -106,6 +106,7 @@ class VimHelper
     map_key("h", "SelectTlWindow")
     map_key("dd", "DeleteTask")
     map_key("i", "AddTask")
+    map_key("c", "ChangeTaskName")
   end
 
   def unlock
@@ -177,5 +178,14 @@ class VimHelper
     refresh_tasks()
     $curwin.cursor = [task_index+1, 0]
   end
+
+  def change_task_name()
+    task_index = @task_buffer.line_number - 1
+    update_hash = {"title" => input("New task name:")}
+    @task_server.update_at_index(task_index, @tl_window.cursor[0]-1, update_hash)
+    refresh_tasks()
+    $curwin.cursor = [task_index+1, 0]
+  end
+
 end
 
