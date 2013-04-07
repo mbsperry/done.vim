@@ -92,7 +92,7 @@ class DoneApp
   end
 
   def map_key(key, function)
-    cmd = "nnoremap <silent> <buffer> #{key} :call #{function}()<CR>"
+    cmd = "nnoremap <silent> <buffer> #{key} :call done##{function}()<CR>"
     VIM::command cmd
   end
   
