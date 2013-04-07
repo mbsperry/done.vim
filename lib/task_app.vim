@@ -43,6 +43,10 @@ function! SortTasks()
   ruby $v.sort_tasks
 endfunction
 
+function! DeleteTask()
+  ruby $v.delete_task
+endfunction
+
 function! QuitApp()
   ruby $v.quit
 endfunction

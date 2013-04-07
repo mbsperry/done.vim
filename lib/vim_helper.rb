@@ -104,6 +104,7 @@ class VimHelper
   def task_mappings
     map_key("<space>", "ToggleTask")
     map_key("h", "SelectTlWindow")
+    map_key("dd", "DeleteTask")
   end
 
   def unlock
@@ -127,6 +128,14 @@ class VimHelper
     self.lock
   end
 
+  def select_tasklist
+    @tl_index = @tl_window.cursor[0] - 1
+    unless get_win_number(@task_window)
+      make_task_window()
+    end
+    refresh_tasks()
+  end
+
   def refresh_tasks
     select_window(@task_window)
     self.unlock
@@ -141,20 +150,18 @@ class VimHelper
     refresh_tasks
   end
 
-  def select_tasklist
-    @tl_index = @tl_window.cursor[0] - 1
-    unless get_win_number(@task_window)
-      make_task_window()
-    end
-    refresh_tasks()
-  end
-
   def toggle_task
     task_index = @task_buffer.line_number - 1
     @task_server.toggle_status(task_index, @tl_window.cursor[0]-1)
     refresh_tasks()
     $curwin.cursor = [task_index+1, 0]
   end
-
+  
+  def delete_task
+    task_index = @task_buffer.line_number - 1
+    @task_server.delete_task(task_index, @tl_window.cursor[0]-1)
+    refresh_tasks()
+    $curwin.cursor = [task_index+1, 0]
+  end
 end
 
