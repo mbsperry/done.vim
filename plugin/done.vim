@@ -19,8 +19,8 @@ endfunction
 "endfunction
 
 function! StartTasks()
-  let s:p = call fnameescape(expand('<sfile>:p:h')
-  rubyfile s:p.done_app.rb
+  let ruby_file = fnameescape(globpath(&runtimepath, 'plugin/done_app.rb')) 
+  exe 'rubyfile ' .ruby_file 
   ruby << EOF
     $v = DoneApp.new
 EOF
