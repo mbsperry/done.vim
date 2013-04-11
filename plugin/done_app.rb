@@ -55,8 +55,8 @@ class DoneApp
 
     tl_title = @task_server.get_tasklist_title(@tl_window.cursor[0]-1)
     setup_buffer()
-    VIM.command 'setlocal statusline+=%='
-    VIM.command "setlocal statusline+=#{tl_title}"
+    VIM.command 'setlocal statusline=%='
+    VIM.command 'setlocal statusline+=[\ %f\ ]'
     task_mappings()
   end
 
